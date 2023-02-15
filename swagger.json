@@ -12,7 +12,7 @@
                 "tags": [
                     "Members can borrow books with conditions"
                 ],
-                "summary": "",
+                "summary": "Members may not borrow more than 2 books - Borrowed books are not borrowed by other members -Member is currently not being penalized ",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -67,7 +67,7 @@
                 "tags": [
                     "Member returns the book with conditions"
                 ],
-                "summary": "",
+                "summary": "he returned book is a book that the member has borrowed - If the book is returned after more than 7 days, the member will be subject to a penalty.",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -138,7 +138,7 @@
                 "summary": "Books that are being borrowed are not counted",
                 "responses": {
                     "200": {
-                        "description": "API Memberikan list buku"
+                        "description": "API Memberikan list buku yang tersedia"
                     }
                 }
             }
@@ -151,7 +151,7 @@
                 "summary": "Books that are being borrowed are not counted",
                 "responses": {
                     "200": {
-                        "description": "API Memberikan list buku"
+                        "description": "API Memberikan list member"
                     }
                 }
             }
@@ -164,7 +164,7 @@
                 "summary": "The number of books being borrowed by each member",
                 "responses": {
                     "200": {
-                        "description": "API Memberikan list buku"
+                        "description": "API Memberikan list member yang meminjam buku"
                     }
                 }
             }
