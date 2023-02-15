@@ -1,0 +1,182 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "Backend Test Case"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "paths": {
+        "/books/borrow_books": {
+            "post": {
+                "tags": [
+                    "Members can borrow books with conditions"
+                ],
+                "summary": "",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "pinjaman_id": {
+                                        "book": "HOB-83",
+                                        "member": "M001"
+                                    }
+                                },
+                                "example": {
+                                    "book": "HOB-83",
+                                    "member": "M001"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "success",
+                                    "pesan": "data berhasil ditambahkan"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "gagal",
+                                    "pesan": "pinjaman melebihi"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/books/return_books": {
+            "post": {
+                "tags": [
+                    "Member returns the book with conditions"
+                ],
+                "summary": "",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "pinjaman_id": {
+                                        "book": "HOB-83",
+                                        "member": "M001"
+                                    }
+                                },
+                                "example": {
+                                    "book": "HOB-83",
+                                    "member": "M001"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "success",
+                                    "pesan": "berhasil mengembalikan buku"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "gagal",
+                                    "pesan": "tidak berhasil mengembalikan buku"
+                                  }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/books/list_books": {
+            "get": {
+                "tags": [
+                    "Check the book"
+                ],
+                "summary": "Shows all existing books and quantities",
+                "responses": {
+                    "200": {
+                        "description": "API Memberikan list buku"
+                    }
+                }
+            }
+        },
+        "/books/list_books_avail": {
+            "get": {
+                "tags": [
+                    "Check the book"
+                ],
+                "summary": "Books that are being borrowed are not counted",
+                "responses": {
+                    "200": {
+                        "description": "API Memberikan list buku"
+                    }
+                }
+            }
+        },
+        "/member/list_member": {
+            "get": {
+                "tags": [
+                    "Member check"
+                ],
+                "summary": "Books that are being borrowed are not counted",
+                "responses": {
+                    "200": {
+                        "description": "API Memberikan list buku"
+                    }
+                }
+            }
+        },
+        "/member/list_member_borrow": {
+            "get": {
+                "tags": [
+                    "Member check"
+                ],
+                "summary": "The number of books being borrowed by each member",
+                "responses": {
+                    "200": {
+                        "description": "API Memberikan list buku"
+                    }
+                }
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ]
+}
