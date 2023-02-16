@@ -77,12 +77,14 @@
                                 "properties": {
                                     "pinjaman_id": {
                                         "book": "HOB-83",
-                                        "member": "M001"
+                                        "member": "M001",
+                                        "date": "2023-02-25"
                                     }
                                 },
                                 "example": {
                                     "book": "HOB-83",
-                                    "member": "M001"
+                                    "member": "M001",
+                                    "date": "2023-02-25"
                                 }
                             }
                         }

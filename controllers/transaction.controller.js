@@ -77,7 +77,6 @@ let checkBorrow = async (id) => {
                 borrower_code: id,
                 is_return: 1
             }
-
         }
     })
     return count
@@ -112,6 +111,7 @@ exports.borrowBook = async (req, res) => {
     let checkingPenalty = await checkPenalty(borrower_code)
 
     console.log(checkingPenalty)
+    await unPenalty(borrower_code)
 
     if (checkingPenalty === true) {
         return res.status(400).send({ "status": "gagal", "pesan": "anda sedang dalam penalty" })
@@ -149,10 +149,47 @@ let checkDate = async (id_book, id_member) => {
         where: {
             book_code: id_book,
             borrower_code: id_member,
-            is_return: 0
+            is_return: 1
         }
     })
     return date
+}
+
+let unPenalty = async (id_member, next) => {
+    const start = new Date("2023-02-28T00:00:00.000Z") //mock date now
+    const endDate = await LogPenalty.findOne({
+        attributes: ['end_date'],
+        where : {
+            borrower_code: id_member,
+            is_penalty: 1
+        }
+    })
+
+    if( endDate === null) {
+        return 0
+    }
+
+    const diffTime = Math.abs(endDate.end_date - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 3) {
+        LogPenalty.update({
+            is_penalty : 0
+        },{
+            where: {
+                borrower_code : id_member
+            }
+        })
+
+        Members.update({
+            penalty : 0
+        },{
+            where: {
+                code : id_member
+            }
+        })
+    }
+    return console.log("penalty : " + diffDays + " days");
 }
 
 exports.returnBook = async (req, res) => {
@@ -163,10 +200,11 @@ exports.returnBook = async (req, res) => {
     let countingBook = await checkBook(book_code);
     let returnDate = await checkDate(book_code, borrower_code)
 
-    const diffTime = Math.abs(returnDate.date_return - returnDate.createdAt);
+    const dateReturn = new Date(date)
+
+    const diffTime = Math.abs(dateReturn - returnDate.createdAt);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log(diffTime + " milliseconds");
-    console.log(diffDays + " days");
+    console.log("lebih kembalikan "+diffDays + " days");
 
     const newdate = new Date(date);
     newdate.setDate(newdate.getDate() + 3);
